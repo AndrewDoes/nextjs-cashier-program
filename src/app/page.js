@@ -1,12 +1,13 @@
-export default function HomePage() {
+// src/app/page.js
+import ProductList from '@/components/ProductList';
+import CurrentSale from '@/components/CurrentSale';
+
+export default function CashierPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="text-5xl font-bold">
-        Hello, Semarang!
-      </h1>
-      <p className="mt-4 text-lg">
-        My first Next.js app is running.
-      </p>
+    // CHANGE THIS LINE:
+    <main className="flex flex-col md:flex-row min-h-screen bg-gray-500">
+      <ProductList />
+      <CurrentSale />
     </main>
   );
 }

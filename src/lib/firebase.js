@@ -2,6 +2,7 @@
 
 import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth"; // Import getAuth
 
 // Your web app's Firebase configuration from the .env.local file
 const firebaseConfig = {
@@ -15,9 +16,10 @@ const firebaseConfig = {
 
 // Initialize Firebase
 // To prevent re-initialization on hot reloads, check if an app is already initialized.
+
+
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-
-// Get a reference to the Firestore database service
 const db = getFirestore(app);
+const auth = getAuth(app); // Create and export the auth instance
 
-export { db };
+export { db, auth }; // Export both

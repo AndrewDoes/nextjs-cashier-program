@@ -34,6 +34,19 @@ export default function CashierPage() {
     });
   };
 
+  const handleDecreaseItem = (product) => {
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find((item) => item.id === product.id);
+      if (existingItem.quantity === 1) {
+        return prevItems.filter((item) => item.id !== product.id);
+      } else {
+        return prevItems.map((item) =>
+          item.id === product.id ? { ...item, quantity: item.quantity - 1 } : item
+        );
+      }
+    });
+  };
+
   const handleClearCart = () => {
     setCartItems([]);
   };
@@ -55,7 +68,7 @@ export default function CashierPage() {
       alert('Failed to complete sale.');
     }
   };
-  
+
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
@@ -89,10 +102,10 @@ export default function CashierPage() {
 
         {/* Right Column: Current Sale (Cart) */}
         <div className="w-full md:w-2/5">
-           {/* ADDED TEXT COLOR */}
+          {/* ADDED TEXT COLOR */}
           <h2 className="text-2xl font-bold mb-4 text-gray-800">Current Sale</h2>
           <div className="bg-white p-4 rounded-lg shadow-md flex flex-col h-full">
-            
+
             <div className="flex-grow overflow-y-auto">
               {cartItems.length === 0 ? (
                 <p className="text-gray-500">Cart is empty.</p>
@@ -106,10 +119,28 @@ export default function CashierPage() {
                         {item.quantity} x Rp {item.price.toLocaleString("id-ID")}
                       </p>
                     </div>
-                     {/* ADDED TEXT COLOR */}
+                    {/* ADDED TEXT COLOR */}
                     <p className="font-bold text-gray-900">
                       Rp {(item.price * item.quantity).toLocaleString("id-ID")}
                     </p>
+                    <div className='flex gap-2'>
+                      <button
+                        onClick={() => {
+                          handleDecreaseItem(item);
+                        }}
+                        className="text-white hover:bg-red-600 py-1 px-3 rounded bg-red-500"
+                      >
+                        -
+                      </button>
+                      <button
+                        onClick={() => {
+                          handleAddItem(item);
+                        }}
+                        className="text-white hover:bg-green-600 py-1 px-3 rounded bg-green-500"
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                 ))
               )}

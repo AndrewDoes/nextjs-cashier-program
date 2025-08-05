@@ -6,7 +6,7 @@ export default function CustomerHeader() {
     <header className="bg-white shadow-md">
       <div className="container mx-auto p-4 flex justify-between items-center">
         <Link href="/customer" className="text-2xl font-bold text-gray-800">
-          Our Cafe
+          Mie Galaxy
         </Link>
         <nav>
           <Link href="/login" className="text-gray-600 hover:text-blue-500">

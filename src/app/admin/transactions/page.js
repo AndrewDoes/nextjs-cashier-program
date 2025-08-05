@@ -129,15 +129,21 @@ export default function TransactionsPage() {
             ) : (
               transactions.map(tx => (
                 <tr key={tx.id}>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-gray-800">
                     {/* Convert Firestore Timestamp to a readable date */}
                     {tx.createdAt.toDate().toLocaleString('id-ID')}
                   </td>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-gray-800">
                     Rp {tx.total.toLocaleString('id-ID')}
                   </td>
-                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    {tx.items.map(item => item.name).join(', ')}
+                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <div className="space-y-1">
+                      {tx.items.map(item => (
+                        <div key={item.id} className="text-gray-800">
+                          {item.quantity} x {item.name}
+                        </div>
+                      ))}
+                    </div>
                   </td>
                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm font-mono text-gray-500">
                     {tx.id}

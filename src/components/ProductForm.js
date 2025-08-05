@@ -1,22 +1,46 @@
 // src/components/ProductForm.js
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function ProductForm({ onSubmit }) {
+export default function ProductForm({ onSubmit, productToEdit }) {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
+  const [category, setCategory] = useState('');
+
+  const categories = ['Makanan', 'Minuman', 'Cemilan', 'Lainnya'];
+
+  const isEditMode = !!productToEdit;
+
+  useEffect(() => {
+    if (productToEdit) {
+      setName(productToEdit.name);
+      setPrice(productToEdit.price);
+      setCategory(productToEdit.category || '');
+    } else {
+      setName('');
+      setPrice('');
+      setCategory('');
+    }
+  }, [productToEdit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !price) return;
-    onSubmit({ name, price: Number(price) });
+    if (!name || !price || !category){
+      alert('Please fill in all fields.');
+      return;
+    }
+    onSubmit({ name, category, price: Number(price) });
     setName('');
     setPrice('');
+    setCategory('');
   };
 
   return (
     <form onSubmit={handleSubmit} className="p-4 bg-gray-100 rounded-lg shadow-md mb-8">
-      <h3 className="text-xl font-bold mb-4 text-gray-800">Add New Product</h3>
+      {/* 4. Change title based on mode */}
+      <h3 className="text-xl font-bold mb-4 text-gray-800">
+        {isEditMode ? 'Edit Product' : 'Add New Product'}
+      </h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <input
           type="text"
@@ -32,10 +56,17 @@ export default function ProductForm({ onSubmit }) {
           onChange={(e) => setPrice(e.target.value)}
           className="p-2 border rounded w-full text-gray-800"
         />
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
-          Add Product
+        <select value={category} onChange={(e) => setCategory(e.target.value)} className='p-2 border rounded w-full bg-white text-gray-800'>
+          <option value="">Select Category</option>
+          {categories.map(cat => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
+        {/* 5. Change button text and color based on mode */}
+        <button type="submit" className={`text-white p-2 rounded transition-colors ${isEditMode ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'}`}>
+          {isEditMode ? 'Update Product' : 'Add Product'}
         </button>
       </div>
-    </form>
+    </form >
   );
 }

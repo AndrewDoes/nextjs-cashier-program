@@ -14,7 +14,7 @@ export default function Sidebar() {
 
     return (
         <aside className='w-64 flex-shrink-0 bg-gray-800 text-white p-4'>
-            <h1 className="text-2xl font-bold mb-8 text-center">Cashier Program</h1>
+            <h1 className="text-2xl font-bold mb-8 text-center border-b-2 pb-4">Mie Galaxy</h1>
             <nav>
                 <ul>
                     {navLinks.map((link) => {

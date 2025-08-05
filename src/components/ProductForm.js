@@ -5,25 +5,34 @@ import { useState, useEffect } from 'react';
 export default function ProductForm({ onSubmit, productToEdit }) {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
+  const [category, setCategory] = useState('');
+
+  const categories = ['Makanan', 'Minuman', 'Cemilan', 'Lainnya'];
 
   const isEditMode = !!productToEdit;
 
   useEffect(() => {
-      if (productToEdit){
-        setName(productToEdit.name);
-        setPrice(productToEdit.price);
-      } else{
-        setName('');
-        setPrice('');
-      }
+    if (productToEdit) {
+      setName(productToEdit.name);
+      setPrice(productToEdit.price);
+      setCategory(productToEdit.category || '');
+    } else {
+      setName('');
+      setPrice('');
+      setCategory('');
+    }
   }, [productToEdit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !price) return;
-    onSubmit({ name, price: Number(price) });
+    if (!name || !price || !category){
+      alert('Please fill in all fields.');
+      return;
+    }
+    onSubmit({ name, category, price: Number(price) });
     setName('');
     setPrice('');
+    setCategory('');
   };
 
   return (
@@ -47,11 +56,17 @@ export default function ProductForm({ onSubmit, productToEdit }) {
           onChange={(e) => setPrice(e.target.value)}
           className="p-2 border rounded w-full text-gray-800"
         />
+        <select value={category} onChange={(e) => setCategory(e.target.value)} className='p-2 border rounded w-full bg-white text-gray-800'>
+          <option value="">Select Category</option>
+          {categories.map(cat => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
         {/* 5. Change button text and color based on mode */}
         <button type="submit" className={`text-white p-2 rounded transition-colors ${isEditMode ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'}`}>
           {isEditMode ? 'Update Product' : 'Add Product'}
         </button>
       </div>
-    </form>
+    </form >
   );
 }

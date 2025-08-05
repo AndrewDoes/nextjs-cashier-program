@@ -43,7 +43,7 @@ export default function ProductList() {
   return (
     <div className="w-full md:w-3/5 p-4">
       <h2 className="text-2xl font-bold mb-4">Products</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-2 w-full">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 w-full">
         {products.map((product) => (
           <button
             key={product.id}

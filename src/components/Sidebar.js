@@ -31,6 +31,7 @@ export default function Sidebar() {
                             </li>
                         );
                     })}
+                    <button onClick={() => window.location.href = '/customer'} className="bg-red-500 w-full block p-3 rounded-lg hover:bg-red-700 transition-colors mt-100">Logout</button>
                 </ul>
             </nav>
         </aside>

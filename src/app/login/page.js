@@ -26,7 +26,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <form onSubmit={handleLogin} className="p-8 bg-white rounded-lg shadow-md w-full max-w-sm">
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Admin Login</h1>
         {error && <p className="mb-4 text-red-500 text-sm">{error}</p>}
@@ -60,6 +60,10 @@ export default function LoginPage() {
           Log In
         </button>
       </form>
+      <h1 className='center text-gray-950 text-2xl mt-5'>For Admin Page Preview Use:</h1>
+      <p className='center text-gray-800 opacity-80'>Email: admin@gmail.com</p>
+      <p className='center text-gray-800 opacity-80'>Password: admin123</p>
+      <p className='center text-gray-800 opacity-50'>This is for read-only preview and cannot perform create, update, delete on Firebase</p>
     </div>
   );
 }
